@@ -1,0 +1,48 @@
+# ============================================
+# 策略引擎规则 - 支持热插拔
+# 修改此文件后执行 /admin/policies/reload 即可生效
+# ============================================
+
+version: 1.0.0
+
+# 技能调用权限
+skill_permissions:
+  resume_screening:
+    allowed_actions: [read, analyze]
+    blocked_actions: [write, delete, network]
+    requires_approval: false
+
+  contract_review:
+    allowed_actions: [read, analyze]
+    blocked_actions: [write, delete, network]
+    requires_approval: true
+
+  schedule_management:
+    allowed_actions: [read, write]
+    blocked_actions: [delete, network]
+    requires_approval: false
+
+  info_retrieval:
+    allowed_actions: [read, network]
+    blocked_actions: [write, delete]
+    requires_approval: false
+
+# 敏感词拦截
+sensitive_patterns:
+  - pattern: "\\d{17}[\\dXx]"
+    action: mask
+    description: 身份证号
+  - pattern: "1[3-9]\\d{9}"
+    action: mask
+    description: 手机号
+  - pattern: "\\w+@\\w+\\.com"
+    action: mask
+    description: 邮箱
+
+# 输出审计规则
+output_audit:
+  enabled: true
+  blocked_outputs:
+    - "ALTER TABLE"
+    - "DROP DATABASE"
+    - "rm -rf"

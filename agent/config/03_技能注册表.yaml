@@ -1,0 +1,57 @@
+# ============================================
+# 技能注册表 - 热插拔核心
+# 新增技能只需在此添加条目并放入skill文件
+# ============================================
+
+skills:
+  - name: resume_screening
+    display_name: 简历智能筛选
+    version: 1.0.0
+    enabled: true
+    config_path: ./skills/resume_screening/Skill.yaml
+    prompt_path: ./skills/resume_screening/prompt.yaml
+    entry_point: main.py
+
+  - name: contract_review
+    display_name: 合同智能审核
+    version: 1.0.0
+    enabled: true
+    config_path: ./skills/contract_review/Skill.yaml
+    prompt_path: ./skills/contract_review/prompt.yaml
+    entry_point: main.py
+
+  - name: schedule_management
+    display_name: 智能日程管理
+    version: 1.0.0
+    enabled: true
+    config_path: ./skills/schedule_management/Skill.yaml
+    prompt_path: ./skills/schedule_management/prompt.yaml
+    entry_point: main.py
+
+  - name: info_retrieval
+    display_name: 信息检索总结
+    version: 1.0.0
+    enabled: true
+    config_path: ./skills/info_retrieval/Skill.yaml
+    prompt_path: ./skills/info_retrieval/prompt.yaml
+    entry_point: main.py
+
+  - name: code_review
+    display_name: 代码智能审核
+    version: 2.0.0
+    enabled: true
+    config_path: ./skills/code_review/Skill.yaml
+    entry_point: main.py
+
+  - name: customer_service
+    display_name: 智能客服Agent
+    version: 1.0.0
+    enabled: true
+    config_path: ./skills/customer_service/Skill.yaml
+    entry_point: main.py
+
+# 技能发现配置
+discovery:
+  scan_path: ./skills/
+  watch_changes: true
+  config_pattern: "*/Skill.yaml"

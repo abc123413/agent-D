@@ -1,0 +1,53 @@
+# ============================================
+# 智能办公Agent平台 - 全局配置
+# 版本：2.0.0
+# 作者：梁修兵
+# ============================================
+
+project:
+  name: 智能办公Agent平台
+  version: 2.0.0
+  description: 基于Harness架构的安全隔离型智能办公平台
+
+# Harness全局配置
+harness:
+  # 模型配置
+  model:
+    provider: openai_compatible
+    model_name: gpt-4o-mini
+    temperature: 0.3
+    max_tokens: 4096
+
+  # 上下文管理
+  context:
+    max_history_turns: 20
+    compression_threshold: 8000
+    compression_strategy: sliding_window
+
+  # 状态持久化
+  persistence:
+    enabled: true
+    backend: sqlite
+    db_path: ./data/state.db
+    checkpoint_interval: 30
+
+# 安全沙箱全局配置
+sandbox:
+  type: open_sudobox
+  network: isolated
+  cpu_limit: 1
+  memory_limit_mb: 512
+  allowed_paths:
+    - /data/input
+    - /data/output
+  blocked_syscalls:
+    - execve
+    - fork
+    - clone
+
+# 策略引擎全局配置
+policy_engine:
+  enabled: true
+  default_action: block
+  rules_path: ./policies/
+  audit_log_enabled: true

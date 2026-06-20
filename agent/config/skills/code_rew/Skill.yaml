@@ -1,0 +1,59 @@
+name: code_rew
+display_name: 代码审查
+version: 1.0.0
+description: ''
+enabled: true
+metadata:
+  author: user
+  category: code_review
+  tags:
+  - code_review
+tools:
+- git_diff
+- git_log
+- file_reader
+- list_directory
+- search_files
+- shell_run
+- http_request
+security:
+  permissions:
+  - read
+  - analyze
+  blocked_permissions:
+  - delete
+  requires_approval: false
+review_rules:
+  thresholds:
+    max_score: 100
+    pass_score: 70
+    critical_auto_reject: true
+  security:
+    weight: 40
+    enabled: true
+    checks:
+    - sql_injection
+    - xss
+    - hardcoded_secrets
+    - command_injection
+    - ssrf
+  quality:
+    weight: 30
+    enabled: true
+    checks:
+    - function_length
+    - cyclomatic_complexity
+  standards:
+    weight: 20
+    enabled: true
+    checks:
+    - naming_convention
+    - error_handling
+  linters:
+    weight: 10
+    enabled: true
+prompt: '你是一个自动化代码审核Agent。严格按照review_rules中的规则执行审核。
+
+  步骤：1.获取diff 2.安全审计 3.质量检查 4.规范检查 5.运行linter 6.计算总分 7.输出报告。
+
+  发现critical问题直接退回PR。'
